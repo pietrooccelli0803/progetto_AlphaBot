@@ -7,6 +7,7 @@ def main():
     bot.forward()
     time.sleep(2)
     bot.stop()
+    
 
 if __name__ == "__main__":
     main()

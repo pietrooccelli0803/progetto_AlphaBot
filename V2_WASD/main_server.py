@@ -1,8 +1,9 @@
 import socket
 import time
 from libreria import AlphaBot
+import RPi.GPIO as GPIO
 
-HOST, PORT = '192.168.1.111', 65432
+HOST, PORT = '192.168.0.183', 65432
 
 bot = AlphaBot()
 

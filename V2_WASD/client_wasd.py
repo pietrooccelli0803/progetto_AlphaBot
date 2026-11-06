@@ -1,7 +1,7 @@
 import socket
 from pynput import keyboard
 
-SERVER_ADDRESS = ("192.168.1.111", 65432)
+SERVER_ADDRESS = ("192.168.0.183", 65432)
 
 # Tabella tasto -> comando (gli stessi del server)
 TASTI = {

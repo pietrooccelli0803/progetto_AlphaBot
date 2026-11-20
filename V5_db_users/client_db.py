@@ -62,6 +62,7 @@ def on_release(key):
 
 def main():
     s.connect(SERVER_ADDRESS)
+    
     print("Mi sono connesso. W/A/S/D per muoverti, ESC per uscire.")
     with keyboard.Listener(on_press=on_press, on_release=on_release) as listener:
         listener.join()

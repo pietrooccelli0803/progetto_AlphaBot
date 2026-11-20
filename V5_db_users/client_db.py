@@ -1,5 +1,6 @@
 import socket
 from pynput import keyboard
+import sqlite3
 
 SERVER_ADDRESS = ("192.168.0.183", 65432)
 
@@ -18,11 +19,14 @@ FRECCE = {
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)  # socket ipv4 TCP
 tasto_premuto = None  # evita di rimandare il comando mentre il tasto è tenuto premuto
 
+def inserimentoDati():
+    username = input("inserisci lo username -> ")
+    password = input("inserisci la password -> ")
+    return username, password
 
 def invia(comando):
     s.sendall((comando + "\n").encode())
     print("Inviato:", comando)
-
 
 def leggi_tasto(key):
     # I tasti speciali non hanno 'char': in quel caso restituisce None
@@ -64,10 +68,14 @@ def main():
     s.connect(SERVER_ADDRESS)
     
     print("Mi sono connesso. W/A/S/D per muoverti, ESC per uscire.")
+
+    username, password = inserimentoDati()
+    s.sendall((username, password).encode())
+
     with keyboard.Listener(on_press=on_press, on_release=on_release) as listener:
         listener.join()
     s.close()
-
+    conn.close
 
 if __name__ == "__main__":
     main()

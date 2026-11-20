@@ -18,6 +18,18 @@ COMANDI = {
     "slower":   bot.decrease_speed,
 }
 
+def connessioneDB():
+    conn = sqlite3.connect("./users.db")
+    cur = conn.cursor()
+    return conn, cur
+
+def autenticazione(datiUser):
+    username, password = datiUser
+    conn, cur = connessioneDB()
+    QUERY = f"SELECT * FROM users u WHERE u.username = {username} AND u.password = {password}"
+    cur.execute(QUERY)
+    row = cur.fetchone()
+    return row
 
 def esegui_comando(riga):
     parti = riga.strip().lower().split()
@@ -87,7 +99,12 @@ def main():
 
         while True:
             conn, addr = s.accept()
-            gestisci_client(conn, addr)
+            data = conn.recv(1024)
+            row = autenticazione(data.decode())
+            if row:
+                gestisci_client(conn, addr)
+            else:
+                
 
 
 if __name__ == '__main__':
